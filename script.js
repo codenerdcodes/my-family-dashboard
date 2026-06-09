@@ -25,14 +25,45 @@ const categories = [
     name: "Bills",
     icon: "💸",
     items: [
-      "⚡Electric",
-      "🔥Gas",
-      "🛜Internet",
-      "💧Water",
-      "🚘Car Insurance",
-      "📱Phone",
+      {
+        name: "⚡ Electric",
+        url: "https://myelectric.com",
+        username: "will@email.com",
+        password: "pass123",
+      },
+      {
+        name: "🔥 Gas",
+        url: "https://mygas.com",
+        username: "will@email.com",
+        password: "pass123",
+      },
+      {
+        name: "🛜 Internet",
+        url: "https://myinternet.com",
+        username: "will@email.com",
+        password: "pass123",
+      },
+      {
+        name: "💧 Water",
+        url: "https://mywater.com",
+        username: "will@email.com",
+        password: "pass123",
+      },
+      {
+        name: "🚘 Car Insurance",
+        url: "https://myinsurance.com",
+        username: "will@email.com",
+        password: "pass123",
+      },
+      {
+        name: "📱 Phone",
+        url: "https://myphone.com",
+        username: "will@email.com",
+        password: "pass123",
+      },
     ],
   },
+
   {
     name: "Streaming",
     icon: "📺",
@@ -72,7 +103,13 @@ categories.forEach(function (category) {
     category.items.forEach(function (item) {
       const itemCard = document.createElement("div");
       itemCard.classList.add("card");
-      itemCard.textContent = item;
+      itemCard.textContent = item.name;
+
+      itemCard.addEventListener("click", function () {
+        alert(
+          `URL: ${item.url}\nUsername: ${item.username}\nPassword: ${item.password}`,
+        );
+      });
       itemGrid.appendChild(itemCard);
     });
   });
