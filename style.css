@@ -54,3 +54,76 @@ button:hover {
   background: #00ffcc;
   color: #0a0f1e;
 }
+
+#dashboard {
+  display: none;
+  padding: 40px;
+
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.card {
+  background: #1e2d40;
+  border: 1px solid #00ffcc;
+  border-radius: 12px;
+  padding: 40px 30px;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #00ffcc;
+  cursor: pointer;
+  transition: 0.2s ease;
+  text-align: center;
+}
+
+.card:hover {
+  background: #00ffcc;
+  color: #0a0f1e;
+  transform: translateY(-3px);
+}
+
+#detailView {
+  display: none;
+  padding: 40px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+#detailHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+#detailTitle {
+  color: #00ffcc;
+  font-size: 2rem;
+  letter-spacing: 2px;
+}
+
+#backBtn {
+  border: 2px solid #00ffcc;
+  color: #00ffcc;
+  padding: 8px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  letter-spacing: 1px;
+  transition: 0.2s ease;
+}
+#backBtn:hover {
+  background-color: #00ffcc;
+  color: #0a0f1e;
+}
+#detailView {
+  display: none;
+  padding: 40px;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#itemGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
