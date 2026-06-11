@@ -4,6 +4,8 @@ const loginBtn = document.getElementById("loginBtn");
 const passwordInput = document.getElementById("passwordInput");
 const detailView = document.getElementById("detailView");
 const itemGrid = document.getElementById("itemGrid");
+const itemView = document.getElementById("itemView");
+const itemInfo = document.getElementById("itemInfo");
 
 loginBtn.addEventListener("click", function () {
   if (passwordInput.value === "") {
@@ -106,9 +108,23 @@ categories.forEach(function (category) {
       itemCard.textContent = item.name;
 
       itemCard.addEventListener("click", function () {
-        alert(
-          `URL: ${item.url}\nUsername: ${item.username}\nPassword: ${item.password}`,
-        );
+        detailView.style.display = "none";
+        itemView.style.display = "flex";
+        document.getElementById("itemTitle").textContent = item.name;
+        itemInfo.innerHTML = `
+        <div class="info-row">
+    <span class="info-label">🌐 Website</span>
+    <a href="${item.url}" target="_blank" class="info-value">${item.url}</a>
+  </div>
+  <div class="info-row">
+    <span class="info-label">👤 Username</span>
+    <span class="info-value">${item.username}</span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">🔑 Password</span>
+    <span class="info-value">${item.password}</span>
+  </div>
+`;
       });
       itemGrid.appendChild(itemCard);
     });
