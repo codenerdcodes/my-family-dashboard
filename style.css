@@ -211,3 +211,16 @@ a.info-value {
 a.info-value:hover {
   text-decoration: underline;
 }
+#detailHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+#backBtn {
+  position: absolute;
+  left: 0;
+}

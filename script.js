@@ -136,3 +136,8 @@ document.getElementById("backBtn").addEventListener("click", function () {
   detailView.style.display = "none";
   dashboard.style.display = "grid";
 });
+
+document.getElementById("itemBackBtn").addEventListener("click", function () {
+  itemView.style.display = "none";
+  detailView.style.display = "grid";
+});
