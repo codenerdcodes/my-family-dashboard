@@ -9,13 +9,14 @@ const itemView = document.getElementById("itemView");
 const itemInfo = document.getElementById("itemInfo");
 const categoryGrid = document.getElementById("categoryGrid");
 
+let currentCategory = null;
+
 loginBtn.addEventListener("click", function () {
   if (passwordInput.value === "") {
     return;
   } else if (passwordInput.value === "family123!") {
     loginScreen.style.display = "none";
     appShell.style.display = "block";
-
     const today = new Date();
     const dateString = today.toLocaleDateString("en-US", {
       weekday: "long",
@@ -42,12 +43,49 @@ function getTimeOfDay() {
   return "evening";
 }
 
+function showAccountCards(accounts, color) {
+  itemInfo.innerHTML = "";
+  accounts.forEach(function (account) {
+    const accountCard = document.createElement("div");
+    accountCard.classList.add("account-card");
+    accountCard.style.borderColor = color;
+    accountCard.innerHTML = `
+      <div class="account-card-header">
+        <span class="account-name">${account.name}</span>
+        <a href="${account.url}" target="_blank" class="launch-btn-sm">Launch →</a>
+      </div>
+      <div class="credential-block">
+        <p class="cred-label">USERNAME</p>
+        <div class="cred-row">
+          <p class="cred-value">${account.username}</p>
+          <button class="copy-btn" onclick="navigator.clipboard.writeText('${account.username}')">Copy</button>
+        </div>
+      </div>
+      <div class="credential-block">
+        <p class="cred-label">PASSWORD</p>
+        <div class="cred-row">
+          <p class="cred-value pw-dots">••••••••••</p>
+          <div style="display:flex;gap:8px;">
+            <button class="show-btn" onclick="
+              const el = this.closest('.cred-row').querySelector('.pw-dots');
+              el.textContent = el.textContent === '••••••••••' ? '${account.password}' : '••••••••••';
+            ">Show</button>
+            <button class="copy-btn" onclick="navigator.clipboard.writeText('${account.password}')">Copy</button>
+          </div>
+        </div>
+      </div>
+    `;
+    itemInfo.appendChild(accountCard);
+  });
+}
+
 const categories = [
   {
     name: "Bills",
     icon: "💸",
     color: "#22c55e",
-    items: [
+    memberView: false,
+    accounts: [
       {
         name: "⚡ Electric",
         url: "https://www.dominionenergy.com",
@@ -90,7 +128,8 @@ const categories = [
     name: "Streaming",
     icon: "📺",
     color: "#a78bfa",
-    items: [
+    memberView: false,
+    accounts: [
       {
         name: "Netflix",
         url: "https://netflix.com",
@@ -121,24 +160,55 @@ const categories = [
     name: "Gaming",
     icon: "🎮",
     color: "#38bdf8",
-    items: [
+    memberView: true,
+    members: [
       {
-        name: "Xbox",
-        url: "https://www.xbox.com",
-        username: "paynew",
-        password: "P@ssWord!",
+        name: "Will",
+        icon: "👨",
+        accounts: [
+          {
+            name: "Xbox",
+            url: "https://www.xbox.com",
+            username: "paynew",
+            password: "P@ssWord!",
+          },
+          {
+            name: "Steam",
+            url: "https://store.steampowered.com",
+            username: "paynew",
+            password: "P@ssWord!",
+          },
+        ],
       },
       {
-        name: "Playstation",
-        url: "https://playstation.com",
-        username: "paynew",
-        password: "P@ssWord!",
+        name: "Jack",
+        icon: "👦",
+        accounts: [
+          {
+            name: "Xbox",
+            url: "https://www.xbox.com",
+            username: "jack@email.com",
+            password: "P@ssWord!",
+          },
+          {
+            name: "Playstation",
+            url: "https://playstation.com",
+            username: "jack@email.com",
+            password: "P@ssWord!",
+          },
+        ],
       },
       {
-        name: "Steam",
-        url: "https://store.steampowered.com",
-        username: "paynew",
-        password: "P@ssWord!",
+        name: "Zach",
+        icon: "👦",
+        accounts: [
+          {
+            name: "Xbox",
+            url: "https://www.xbox.com",
+            username: "zach@email.com",
+            password: "P@ssWord!",
+          },
+        ],
       },
     ],
   },
@@ -146,24 +216,43 @@ const categories = [
     name: "Medical",
     icon: "🏥",
     color: "#f87171",
-    items: [
+    memberView: true,
+    members: [
       {
-        name: "United Health",
-        url: "https://uhc.com",
-        username: "paynew",
-        password: "P@ssWord!",
+        name: "Will",
+        icon: "👨",
+        accounts: [
+          {
+            name: "United Health",
+            url: "https://uhc.com",
+            username: "paynew",
+            password: "P@ssWord!",
+          },
+          {
+            name: "MyChart",
+            url: "https://mychart.com",
+            username: "paynew",
+            password: "P@ssWord!",
+          },
+        ],
       },
       {
-        name: "CVS Pharmacy",
-        url: "https://cvs.com",
-        username: "paynew",
-        password: "P@ssWord!",
-      },
-      {
-        name: "MyChart",
-        url: "https://mychart.com",
-        username: "paynew",
-        password: "P@ssWord!",
+        name: "Jen",
+        icon: "👩",
+        accounts: [
+          {
+            name: "United Health",
+            url: "https://uhc.com",
+            username: "jen@email.com",
+            password: "P@ssWord!",
+          },
+          {
+            name: "MyChart",
+            url: "https://mychart.com",
+            username: "jen@email.com",
+            password: "P@ssWord!",
+          },
+        ],
       },
     ],
   },
@@ -171,12 +260,50 @@ const categories = [
     name: "Documents",
     icon: "🪪",
     color: "#fb923c",
-    items: [
-      { name: "Tax Documents", url: "", username: "", password: "" },
-      { name: "Birth Certificates", url: "", username: "", password: "" },
-      { name: "Social Security Cards", url: "", username: "", password: "" },
-      { name: "Passports", url: "", username: "", password: "" },
-      { name: "Drivers License", url: "", username: "", password: "" },
+    memberView: true,
+    members: [
+      {
+        name: "Will",
+        icon: "👨",
+        accounts: [
+          { name: "Drivers License", url: "", username: "", password: "" },
+          { name: "Passport", url: "", username: "", password: "" },
+          { name: "Social Security", url: "", username: "", password: "" },
+        ],
+      },
+      {
+        name: "Jen",
+        icon: "👩",
+        accounts: [
+          { name: "Drivers License", url: "", username: "", password: "" },
+          { name: "Passport", url: "", username: "", password: "" },
+          { name: "Social Security", url: "", username: "", password: "" },
+        ],
+      },
+      {
+        name: "Jack",
+        icon: "👦",
+        accounts: [
+          { name: "Birth Certificate", url: "", username: "", password: "" },
+          { name: "Social Security", url: "", username: "", password: "" },
+        ],
+      },
+      {
+        name: "Zach",
+        icon: "👦",
+        accounts: [
+          { name: "Birth Certificate", url: "", username: "", password: "" },
+          { name: "Social Security", url: "", username: "", password: "" },
+        ],
+      },
+      {
+        name: "Family",
+        icon: "👨‍👩‍👦",
+        accounts: [
+          { name: "Tax Documents", url: "", username: "", password: "" },
+          { name: "Home Warranty", url: "", username: "", password: "" },
+        ],
+      },
     ],
   },
 ];
@@ -199,63 +326,50 @@ categories.forEach(function (category) {
   card.appendChild(name);
 
   card.addEventListener("click", function () {
+    currentCategory = category;
     dashboard.style.display = "none";
-    detailView.style.display = "flex";
-    itemGrid.innerHTML = "";
-    document.getElementById("detailTitle").textContent =
-      `${category.icon} ${category.name}`;
 
-    category.items.forEach(function (item) {
-      const itemCard = document.createElement("div");
-      itemCard.classList.add("card");
-      itemCard.style.borderColor = category.color;
+    if (category.memberView === false) {
+      itemView.style.display = "flex";
+      document.getElementById("itemTitle").textContent =
+        `${category.icon} ${category.name}`;
+      showAccountCards(category.accounts, category.color);
+    } else {
+      detailView.style.display = "flex";
+      itemGrid.innerHTML = "";
+      document.getElementById("detailTitle").textContent =
+        `${category.icon} ${category.name}`;
 
-      const itemIcon = document.createElement("span");
-      itemIcon.classList.add("card-icon");
-      itemIcon.textContent = "📄";
+      category.members.forEach(function (member) {
+        const memberCard = document.createElement("div");
+        memberCard.classList.add("card");
+        memberCard.style.borderColor = category.color;
 
-      const itemName = document.createElement("span");
-      itemName.classList.add("card-name");
-      itemName.textContent = item.name;
-      itemName.style.color = category.color;
+        const memberIcon = document.createElement("span");
+        memberIcon.classList.add("card-icon");
+        memberIcon.textContent = member.icon;
 
-      itemCard.appendChild(itemIcon);
-      itemCard.appendChild(itemName);
+        const memberName = document.createElement("span");
+        memberName.classList.add("card-name");
+        memberName.textContent = member.name;
+        memberName.style.color = category.color;
 
-      itemCard.addEventListener("click", function () {
-        detailView.style.display = "none";
-        itemView.style.display = "flex";
-        document.getElementById("itemTitle").textContent = item.name;
-        itemInfo.innerHTML = `
-          <div class="detail-hero">
-            <h1 class="detail-service-name">${item.name}</h1>
-            <a href="${item.url}" target="_blank" class="launch-btn">Launch →</a>
-          </div>
-          <div class="credential-block">
-            <p class="cred-label">USERNAME</p>
-            <div class="cred-row">
-              <p class="cred-value">${item.username}</p>
-              <button class="copy-btn" onclick="navigator.clipboard.writeText('${item.username}')">Copy</button>
-            </div>
-          </div>
-          <div class="credential-block">
-            <p class="cred-label">PASSWORD</p>
-            <div class="cred-row">
-              <p class="cred-value" id="passwordDisplay">••••••••••</p>
-              <div style="display:flex;gap:8px;">
-                <button class="show-btn" onclick="
-                  const el = document.getElementById('passwordDisplay');
-                  el.textContent = el.textContent === '••••••••••' ? '${item.password}' : '••••••••••';
-                ">Show</button>
-                <button class="copy-btn" onclick="navigator.clipboard.writeText('${item.password}')">Copy</button>
-              </div>
-            </div>
-          </div>
-        `;
+        memberCard.appendChild(memberIcon);
+        memberCard.appendChild(memberName);
+
+        memberCard.addEventListener("click", function () {
+          detailView.style.display = "none";
+          itemView.style.display = "flex";
+          document.getElementById("itemTitle").textContent =
+            `${member.icon} ${member.name}`;
+          showAccountCards(member.accounts, category.color);
+        });
+
+        itemGrid.appendChild(memberCard);
       });
-      itemGrid.appendChild(itemCard);
-    });
+    }
   });
+
   categoryGrid.appendChild(card);
 });
 
@@ -266,5 +380,10 @@ document.getElementById("backBtn").addEventListener("click", function () {
 
 document.getElementById("itemBackBtn").addEventListener("click", function () {
   itemView.style.display = "none";
-  detailView.style.display = "flex";
+  itemInfo.innerHTML = "";
+  if (currentCategory && currentCategory.memberView === false) {
+    dashboard.style.display = "block";
+  } else {
+    detailView.style.display = "flex";
+  }
 });
