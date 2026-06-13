@@ -9,27 +9,42 @@
   <body>
     <div id="loginScreen">
       <h1>Payne Family Dashboard</h1>
+      <p class="login-subtitle">Your family's command center</p>
       <input type="password" id="passwordInput" placeholder="Enter password" />
       <button id="loginBtn">Login</button>
     </div>
-    <div id="dashboard"></div>
-    <div id="detailView">
-      <div id="detailHeader">
-         <button id="backBtn">Back</button>
-         <span id="topbar">
+
+    <div id="appShell" style="display: none">
+      <nav id="navbar">
+        <span id="navTitle">PFD</span>
+        <span id="navDate"></span>
+      </nav>
+
+      <div id="dashboard">
+        <div id="dashHeader">
+          <h2 id="welcomeMsg"></h2>
+          <p class="dash-sub">What do you need today?</p>
+        </div>
+        <div id="categoryGrid"></div>
+      </div>
+
+      <div id="detailView">
+        <div id="detailHeader">
+          <button id="backBtn">← Back</button>
           <h2 id="detailTitle"></h2>
-         </span>
+        </div>
+        <div id="itemGrid"></div>
       </div>
-      <div id="itemGrid"></div>
+
+      <div id="itemView">
+        <div id="itemHeader">
+          <button id="itemBackBtn">← Back</button>
+          <h2 id="itemTitle"></h2>
+        </div>
+        <div id="itemInfo"></div>
       </div>
     </div>
-    <div id="itemView">
-      <div id="itemHeader">
-        <button id="itemBackBtn">Back</button>
-        <h2 id="itemTitle"></h2>
-      </div>
-      <div id="itemInfo"></div>
-    </div>
+
     <script src="script.js"></script>
   </body>
 </html>
