@@ -30,37 +30,37 @@ const categories = [
       {
         name: "⚡ Electric",
         url: "https://myelectric.com",
-        username: "will@email.com",
+        email: "will@email.com",
         password: "pass123",
       },
       {
         name: "🔥 Gas",
         url: "https://mygas.com",
-        username: "will@email.com",
+        email: "will@email.com",
         password: "pass123",
       },
       {
         name: "🛜 Internet",
-        url: "https://myinternet.com",
+        email: "https://myinternet.com",
         username: "will@email.com",
         password: "pass123",
       },
       {
         name: "💧 Water",
         url: "https://mywater.com",
-        username: "will@email.com",
+        email: "will@email.com",
         password: "pass123",
       },
       {
         name: "🚘 Car Insurance",
         url: "https://myinsurance.com",
-        username: "will@email.com",
+        email: "will@email.com",
         password: "pass123",
       },
       {
         name: "📱 Phone",
-        url: "https://myphone.com",
-        username: "will@email.com",
+        url: "https://Verizon.com",
+        email: "jlpayne052710@gmail.com",
         password: "pass123",
       },
     ],
@@ -69,13 +69,71 @@ const categories = [
   {
     name: "Streaming",
     icon: "📺",
-    items: ["Netflix", "Hulu", "Disney+", "Prime"],
+    items: [
+      {
+        name: "Netflix",
+        email: "codenerdcodes@gmail.com",
+        password: "P@ssw0rd!!",
+        url: "https://netflix.com",
+      },
+      {
+        name: "Hulu",
+        email: "codenerdcodes@gmail.com",
+        password: "P@$$W0RD!",
+        url: "https://www.hulu.com",
+      },
+      {
+        name: "Disney+",
+        email: "codenerdcodes@gmail.com",
+        password: "P@$$W0RD!",
+        url: "https://www.disneyplus.com.com",
+      },
+      {
+        name: "Prime",
+        email: "jlpayne052710@gmail.com",
+        password: "P@$$W0RD!!",
+        url: "https://www.primevideo.com",
+      },
+    ],
   },
-  { name: "Gaming", icon: "🎮", items: ["Xbox", "Playstation", "Steam"] },
+  {
+    name: "Gaming",
+    icon: "🎮",
+    items: [
+      {
+        name: "Xbox",
+        email: "jlpayne052710@gmail.com",
+        password: "9ijn0okm(IJN)OKM",
+        url: "https://www.xbox.com",
+      },
+      {
+        name: "Playstation",
+        email: "codenerdcodes@gmail.com",
+        password: "###123!",
+        url: "https://playstation.com",
+      },
+      {
+        name: "Steam",
+        email: "atarigamer81@gmail.com",
+        password: "$$$123abC",
+        url: "https://store.steampowered.com/",
+      },
+    ],
+  },
   {
     name: "Medical",
     icon: "🏥",
-    items: ["Insurance", "Web Portals", "Pharmacy", "School Records"],
+    items: [
+      {
+        name: "United Health Care",
+        url: "https://uhc.com",
+        email: "jlpayne052710@gmail.com",
+        
+      },
+      "Web Portals",
+      "Pharmacy",
+      "School Records",
+    ],
   },
   {
     name: "Documents",
